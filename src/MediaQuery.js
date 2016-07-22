@@ -13,7 +13,11 @@
 
         var self = this;
         this.listener = function(mql) {
-            self.mql = mql;
+            if (mql.currentTarget) {
+                self.mql = mql.currentTarget;
+            } else {
+                self.mql = mql;
+            }
             self.assess();
         };
         this.mql.addListener(this.listener);
@@ -38,7 +42,7 @@
 
         /**
          * removes the given handler from the collection, and calls it's destroy methods
-         * 
+         *
          * @param {object || function} handler the handler to remove
          */
         removeHandler : function(handler) {
@@ -53,7 +57,7 @@
 
         /**
          * Determine whether the media query should be considered a match
-         * 
+         *
          * @return {Boolean} true if media query can be considered a match, false otherwise
          */
         matches : function() {
